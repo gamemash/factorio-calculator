@@ -1,0 +1,22 @@
+div#editor {
+  display:block;
+  width: 100%;
+}
+
+div#buttons {
+  height: 100px;
+}
+
+div#buttons div {
+  width: 20px;
+  height: 20px;
+  display: block;
+  float: left;
+  border: 1px solid black;
+  text-align: center;
+  margin: 1px;
+}
+
+div#buttons div.active {
+  background-color: #ec7404; 
+}
