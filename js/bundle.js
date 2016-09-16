@@ -9,6 +9,9 @@ let upgrades = {
 }
 
 let items = {
+  'assembling machine 1': 'Assembling-machine-1.png',
+  'assembling machine 2': 'Assembling-machine-2.png',
+  'assembling machine 3': 'Assembling-machine-3.png',
   'transport belt': 'Basic-transport-belt.png',
   'copper cable': 'Copper-cable.png',
   'copper plate': 'Copper-plate.png',
@@ -17,7 +20,13 @@ let items = {
   'iron gear wheel': 'Iron-gear-wheel.png',
   'iron plate': 'Iron-plate.png',
   'science pack 2': 'Science-pack-2.png',
-  'science pack 1': 'Science-pack-1.png'
+  'science pack 1': 'Science-pack-1.png',
+  'steel furnace': 'Steel-furnace.png',
+  'stone furnace': 'Stone-furnace.png',
+  'electric furnace': 'Electric-furnace.png',
+  'stone': 'Stone.png',
+  'stone brick': 'Stone-brick.png',
+  'steel plate': 'Steel-plate.png'
 };
 
 AutoCrafter.setup(upgrades);
@@ -34,7 +43,15 @@ let FactoryForm = {
     document.getElementById('itemIcon').src = "./images/" + items[this.item];
   },
   submit: function(data){
-    console.log("handle");
+    let smeltingSpeed = parseFloat(Array.prototype.slice.call(document.getElementsByName("smelting")).find(function(input){ return input.checked }).value);
+    let craftingSpeed = parseFloat(Array.prototype.slice.call(document.getElementsByName("crafting")).find(function(input){ return input.checked }).value);
+
+    let upgrades = {
+      'smelting': smeltingSpeed,
+      'crafting': craftingSpeed
+    };
+    AutoCrafter.setup(upgrades);
+
     let quantity = parseFloat(document.getElementById('quantity').value);
     console.log('calculate ', this.item, ' for ', quantity);
     let result = AutoCrafter.craft(this.item, quantity);
@@ -167,6 +184,42 @@ module.exports = [
     requirements: { 'inserter': 1, 'transport belt': 1},
     time: 6,
     method: 'crafting'
+  },
+  {
+    result: { 'assembling machine 1': 1},
+    requirements: { 'electronic circuit': 3, 'iron gear wheel': 5, 'iron plate': 9},
+    time: 0.5,
+    method: 'crafting'
+  },
+  {
+    result: { 'assembling machine 2': 1},
+    requirements: {'assembling machine 1': 1, 'electronic circuit': 3, 'iron gear wheel': 5, 'iron plate': 9},
+    time: 0.5,
+    method: 'crafting'
+  },
+  {
+    result: { 'stone furnace': 1},
+    requirements: {'stone': 5},
+    time: 0.5,
+    method: 'crafting'
+  },
+  {
+    result: { 'steel furnace': 1},
+    requirements: {'steel plate': 8, 'stone bricks': 10},
+    time: 3,
+    method: 'crafting'
+  },
+  {
+    result: { 'steel plate': 1},
+    requirements: {'iron plate': 5},
+    time: 17.5,
+    method: 'smelting'
+  },
+  {
+    result: { 'stone brick': 1},
+    requirements: {'stone': 2},
+    time: 3.5,
+    method: 'smelting'
   },
 ];
 
