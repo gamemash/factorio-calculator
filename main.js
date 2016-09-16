@@ -1,6 +1,7 @@
 "use strict";
 
 let AutoCrafter = require('./src/autocrafter.js');
+let Recipes = require('./src/recipes.js');
 
 let upgrades = {
   'crafting': 1,
@@ -39,7 +40,37 @@ let FactoryForm = {
     this.updateIcon();
   },
   updateIcon: function(){
-    document.getElementById('itemIcon').src = "./images/" + items[this.item];
+    let recipeSpan = document.getElementById("recipeSpan");
+    while(recipeSpan.firstChild)
+      recipeSpan.removeChild(recipeSpan.firstChild);
+
+    let recipe = Recipes.find(function(recipe){
+      return (this.item in recipe.result);
+    }.bind(this));
+    if (recipe){
+      let newIcon = function(item){
+        let icon = document.createElement("img");
+        icon.src = "./images/" + items[item];
+        return icon;
+      }
+      for (let requirement in recipe.requirements){
+        if(requirement in items)
+          recipeSpan.appendChild(newIcon(requirement));
+      }
+
+      { 
+        let seperator = document.createElement("span");
+        var el = document.createElement("div");
+        el.innerHTML = "&#8594;";
+        seperator.textContent = el.firstChild.data;
+        recipeSpan.appendChild(seperator);
+      }
+
+      for (let result in recipe.result){
+        if(result in items)
+          recipeSpan.appendChild(newIcon(result));
+      }
+    }
   },
   submit: function(data){
     let smeltingSpeed = parseFloat(Array.prototype.slice.call(document.getElementsByName("smelting")).find(function(input){ return input.checked }).value);
