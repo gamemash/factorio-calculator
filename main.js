@@ -8,6 +8,9 @@ let upgrades = {
 }
 
 let items = {
+  'assembling machine 1': 'Assembling-machine-1.png',
+  'assembling machine 2': 'Assembling-machine-2.png',
+  'assembling machine 3': 'Assembling-machine-3.png',
   'transport belt': 'Basic-transport-belt.png',
   'copper cable': 'Copper-cable.png',
   'copper plate': 'Copper-plate.png',
@@ -16,7 +19,13 @@ let items = {
   'iron gear wheel': 'Iron-gear-wheel.png',
   'iron plate': 'Iron-plate.png',
   'science pack 2': 'Science-pack-2.png',
-  'science pack 1': 'Science-pack-1.png'
+  'science pack 1': 'Science-pack-1.png',
+  'steel furnace': 'Steel-furnace.png',
+  'stone furnace': 'Stone-furnace.png',
+  'electric furnace': 'Electric-furnace.png',
+  'stone': 'Stone.png',
+  'stone brick': 'Stone-brick.png',
+  'steel plate': 'Steel-plate.png'
 };
 
 AutoCrafter.setup(upgrades);
@@ -33,7 +42,15 @@ let FactoryForm = {
     document.getElementById('itemIcon').src = "./images/" + items[this.item];
   },
   submit: function(data){
-    console.log("handle");
+    let smeltingSpeed = parseFloat(Array.prototype.slice.call(document.getElementsByName("smelting")).find(function(input){ return input.checked }).value);
+    let craftingSpeed = parseFloat(Array.prototype.slice.call(document.getElementsByName("crafting")).find(function(input){ return input.checked }).value);
+
+    let upgrades = {
+      'smelting': smeltingSpeed,
+      'crafting': craftingSpeed
+    };
+    AutoCrafter.setup(upgrades);
+
     let quantity = parseFloat(document.getElementById('quantity').value);
     console.log('calculate ', this.item, ' for ', quantity);
     let result = AutoCrafter.craft(this.item, quantity);

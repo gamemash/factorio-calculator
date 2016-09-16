@@ -53,4 +53,40 @@ module.exports = [
     time: 6,
     method: 'crafting'
   },
+  {
+    result: { 'assembling machine 1': 1},
+    requirements: { 'electronic circuit': 3, 'iron gear wheel': 5, 'iron plate': 9},
+    time: 0.5,
+    method: 'crafting'
+  },
+  {
+    result: { 'assembling machine 2': 1},
+    requirements: {'assembling machine 1': 1, 'electronic circuit': 3, 'iron gear wheel': 5, 'iron plate': 9},
+    time: 0.5,
+    method: 'crafting'
+  },
+  {
+    result: { 'stone furnace': 1},
+    requirements: {'stone': 5},
+    time: 0.5,
+    method: 'crafting'
+  },
+  {
+    result: { 'steel furnace': 1},
+    requirements: {'steel plate': 8, 'stone bricks': 10},
+    time: 3,
+    method: 'crafting'
+  },
+  {
+    result: { 'steel plate': 1},
+    requirements: {'iron plate': 5},
+    time: 17.5,
+    method: 'smelting'
+  },
+  {
+    result: { 'stone brick': 1},
+    requirements: {'stone': 2},
+    time: 3.5,
+    method: 'smelting'
+  },
 ];
